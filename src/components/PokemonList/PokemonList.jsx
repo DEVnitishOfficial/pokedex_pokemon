@@ -57,7 +57,7 @@ function PokemonList() {
 
         <div className="font-sans text-5xl m-5">Pokemon List</div>
         <div className="flex flex-wrap place-content-evenly ">
-        {(isLoading) ? 'loading......' : pokemonList.map((p) => <Pokemon name={p.name} image={p.image} key={p.id} />)}
+        {(isLoading) ? 'loading......' : pokemonList.map((p) => <Pokemon name={p.name} image={p.image} key={p.id} id={p.id} />)}
         </div>
 
         <div className="gap-x-5 gap-y-5">  
