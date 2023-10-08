@@ -1,11 +1,17 @@
 import axios from "axios";
 import {useState, useEffect} from 'react'
-import usePokemonList from "./usePokemonList";
 
-function usePokemonDetails(id){
+function usePokemonDetails(id,pokemonName){
     const [pokemons, setPokemons] = useState({})
      async function downloadPokemons(){
-        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+      try {
+        let response
+      if(pokemonName){
+        response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
+      }else{
+       response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+
+      }
         const pokemonOfSameType = await axios.get(`https://pokeapi.co/api/v2/type/${response.data.types ? response.data.types[0].type.name : ''}`)
         console.log('same type pokemons',pokemonOfSameType)
         console.log('responselksdlfkslkjdfjsdf',response)
@@ -20,9 +26,13 @@ function usePokemonDetails(id){
           similarPokemons : pokemonOfSameType.data.pokemon.slice(0,5)
         })
         setPokemonListState({...pokemonListState, type:response.data.types ? response.data.types[0].type.name : ''})
+      } catch (error) {
+        console.log('something went wrong')
+      }
+      
        }
 
-       const [pokemonListState, setPokemonListState] = usePokemonList()      
+       const [pokemonListState, setPokemonListState] = useState({})      
        useEffect(() => {
         downloadPokemons()
       console.log('pokeResult',pokemons.types, pokemonListState)

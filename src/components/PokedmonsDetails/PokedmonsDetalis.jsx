@@ -1,9 +1,9 @@
 
 import {useParams} from 'react-router-dom'
 import usePokemonDetails from '../../hooks/usePokemonDetails';
-function PokedmonsDetails(){
+function PokedmonsDetails({pokemonName}){
   const {id} = useParams()
-  const [pokemons] = usePokemonDetails(id)
+  const [pokemons] = usePokemonDetails(id, pokemonName)
 
   console.log('dekhoPokemones ko',pokemons)
   
